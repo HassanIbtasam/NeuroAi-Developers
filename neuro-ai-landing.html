@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuro Ai Developers | Intelligent Automation Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00ffcc;
+            --secondary: #0099ff;
+            --accent: #ff006e;
+            --dark: #0a0e27;
+            --darker: #050812;
+            --light: #ffffff;
+            --gray: #8892b0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Jost', sans-serif;
+            background: var(--darker);
+            color: var(--light);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.4;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 204, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 153, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(255, 0, 110, 0.1) 0%, transparent 50%);
+        }
+
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.03;
+            background-image: 
+                linear-gradient(var(--primary) 1px, transparent 1px),
+                linear-gradient(90deg, var(--primary) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        header {
+            padding: 2rem 0;
+            position: relative;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: '◆';
+            -webkit-text-fill-color: var(--primary);
+            font-size: 1.2rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.5rem;
+            border-radius: 50px;
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--gray);
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Jost', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--dark);
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
+        }
+
+        .lang-btn:hover:not(.active) {
+            color: var(--light);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 4rem 0;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text p {
+            font-size: 1.3rem;
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+            font-weight: 300;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            animation: fadeInUp 0.8s ease-out 0.6s backwards;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-family: 'Jost', sans-serif;
+            font-weight: 500;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--dark);
+            box-shadow: 0 10px 40px rgba(0, 255, 204, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(0, 255, 204, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 255, 204, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Hero Visual */
+        .hero-visual {
+            position: relative;
+            animation: fadeIn 1s ease-out 0.4s backwards;
+        }
+
+        .neural-network {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .network-node {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 30px var(--primary);
+            animation: nodePulse 3s ease-in-out infinite;
+        }
+
+        .network-node:nth-child(1) { top: 10%; left: 50%; animation-delay: 0s; }
+        .network-node:nth-child(2) { top: 30%; left: 20%; animation-delay: 0.3s; }
+        .network-node:nth-child(3) { top: 30%; left: 80%; animation-delay: 0.6s; }
+        .network-node:nth-child(4) { top: 50%; left: 10%; animation-delay: 0.9s; }
+        .network-node:nth-child(5) { top: 50%; left: 50%; animation-delay: 1.2s; }
+        .network-node:nth-child(6) { top: 50%; left: 90%; animation-delay: 1.5s; }
+        .network-node:nth-child(7) { top: 70%; left: 30%; animation-delay: 1.8s; }
+        .network-node:nth-child(8) { top: 70%; left: 70%; animation-delay: 2.1s; }
+        .network-node:nth-child(9) { top: 90%; left: 50%; animation-delay: 2.4s; }
+
+        .central-core {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 0 60px rgba(0, 255, 204, 0.6);
+            animation: rotate 20s linear infinite;
+        }
+
+        .central-core::before {
+            content: '';
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        .central-core::after {
+            content: 'AI';
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--dark);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            font-size: 1.2rem;
+            margin-bottom: 4rem;
+            font-weight: 300;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.1), rgba(0, 153, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 60px rgba(0, 255, 204, 0.2);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card p {
+            color: var(--gray);
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+            font-weight: 300;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 40px rgba(0, 255, 204, 0.15);
+        }
+
+        .stars {
+            color: var(--primary);
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-text {
+            color: var(--light);
+            line-height: 1.8;
+            font-size: 1rem;
+            font-weight: 300;
+            flex-grow: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 255, 204, 0.1);
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: var(--dark);
+            font-size: 1.1rem;
+        }
+
+        .author-info {
+            flex-grow: 1;
+        }
+
+        .author-name {
+            font-weight: 500;
+            color: var(--light);
+            margin-bottom: 0.2rem;
+        }
+
+        .author-title {
+            font-size: 0.9rem;
+            color: var(--gray);
+            font-weight: 300;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: var(--primary);
+        }
+
+        .faq-question {
+            padding: 1.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            gap: 2rem;
+        }
+
+        .faq-question span:first-child {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--light);
+        }
+
+        .faq-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+            transition: transform 0.3s ease;
+            font-weight: 300;
+            flex-shrink: 0;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 0 2rem 2rem 2rem;
+        }
+
+        .faq-answer p {
+            color: var(--gray);
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.1), rgba(0, 153, 255, 0.1));
+            border: 2px solid var(--primary);
+            border-radius: 30px;
+            padding: 5rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 204, 0.1) 0%, transparent 70%);
+            animation: rotate 15s linear infinite;
+        }
+
+        .cta-box h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-box p {
+            font-size: 1.3rem;
+            color: var(--gray);
+            margin-bottom: 2.5rem;
+            position: relative;
+            z-index: 1;
+            font-weight: 300;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(0, 255, 204, 0.2);
+        }
+
+        footer p {
+            color: var(--gray);
+            font-weight: 300;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes nodePulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.3);
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* RTL Support */
+        [dir="rtl"] .hero-content {
+            direction: rtl;
+        }
+
+        [dir="rtl"] .logo::before {
+            order: 2;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .hero-text h1 {
+                font-size: 3.5rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-visual {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-text p {
+                font-size: 1.1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cta-box h2 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .faq-question span:first-child {
+                font-size: 1rem;
+            }
+
+            .faq-question {
+                padding: 1.5rem;
+            }
+
+            .faq-item.active .faq-answer {
+                padding: 0 1.5rem 1.5rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="grid-overlay"></div>
+
+    <div class="container">
+        <header>
+            <nav>
+                <div class="logo" data-en="NEURO AI" data-ar="نيورو اي">NEURO AI</div>
+                <div class="lang-switch">
+                    <button class="lang-btn active" data-lang="en">English</button>
+                    <button class="lang-btn" data-lang="ar">العربية</button>
+                </div>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>
+                        <span data-en="Automate Your" data-ar="أتمتة">Automate Your</span><br>
+                        <span class="gradient-text" data-en="Business Intelligence" data-ar="ذكاء أعمالك">Business Intelligence</span>
+                    </h1>
+                    <p data-en="We transform your workflows with cutting-edge AI automation. From task execution to complex decision-making, Neuro Ai Developers empowers businesses of all sizes to operate at the speed of thought." 
+                       data-ar="نحول سير عملك باستخدام أحدث تقنيات الذكاء الاصطناعي. من تنفيذ المهام إلى اتخاذ القرارات المعقدة، نمكن شركات نيورو اي للمطورين من جميع الأحجام من العمل بسرعة الفكر.">
+                        We transform your workflows with cutting-edge AI automation. From task execution to complex decision-making, Neuro Ai Developers empowers businesses of all sizes to operate at the speed of thought.
+                    </p>
+                    <div class="cta-buttons">
+                        <button class="btn btn-primary" data-en="Get Started" data-ar="ابدأ الآن">Get Started</button>
+                        <button class="btn btn-secondary" data-en="Learn More" data-ar="اعرف المزيد">Learn More</button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="neural-network">
+                        <div class="network-node"></div>
+                        <div class="network-node"></div>
+                        <div class="network-node"></div>
+                        <div class="network-node"></div>
+                        <div class="network-node"></div>
+                        <div class="network-node"></div>
+                        <div class="network-node"></div>
+                        <div class="network-node"></div>
+                        <div class="network-node"></div>
+                        <div class="central-core"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="services">
+            <h2 class="section-title" data-en="Our Automation Solutions" data-ar="حلول الأتمتة لدينا">Our Automation Solutions</h2>
+            <p class="section-subtitle" data-en="Intelligent systems designed for small, mid, and large-sized businesses" data-ar="أنظمة ذكية مصممة للشركات الصغيرة والمتوسطة والكبيرة">Intelligent systems designed for small, mid, and large-sized businesses</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <span class="service-icon">⚡</span>
+                    <h3 data-en="Task Automation" data-ar="أتمتة المهام">Task Automation</h3>
+                    <p data-en="Eliminate repetitive tasks and free your team to focus on strategic initiatives. Our AI handles data entry, report generation, and routine operations with precision." 
+                       data-ar="تخلص من المهام المتكررة وحرر فريقك للتركيز على المبادرات الاستراتيجية. يتعامل الذكاء الاصطناعي لدينا مع إدخال البيانات وإنشاء التقارير والعمليات الروتينية بدقة.">
+                        Eliminate repetitive tasks and free your team to focus on strategic initiatives. Our AI handles data entry, report generation, and routine operations with precision.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <span class="service-icon">🔄</span>
+                    <h3 data-en="Workflow Optimization" data-ar="تحسين سير العمل">Workflow Optimization</h3>
+                    <p data-en="Streamline complex processes across departments. We analyze, redesign, and automate your workflows to maximize efficiency and reduce operational costs." 
+                       data-ar="تبسيط العمليات المعقدة عبر الأقسام. نحلل ونعيد تصميم ونؤتمت سير عملك لزيادة الكفاءة وتقليل التكاليف التشغيلية.">
+                        Streamline complex processes across departments. We analyze, redesign, and automate your workflows to maximize efficiency and reduce operational costs.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <span class="service-icon">🧠</span>
+                    <h3 data-en="Intelligent Decision Making" data-ar="اتخاذ القرارات الذكية">Intelligent Decision Making</h3>
+                    <p data-en="Leverage AI-powered analytics for data-driven decisions. Our systems process vast amounts of information to provide actionable insights in real-time." 
+                       data-ar="استفد من التحليلات المدعومة بالذكاء الاصطناعي للقرارات المستندة إلى البيانات. تعالج أنظمتنا كميات هائلة من المعلومات لتوفير رؤى قابلة للتنفيذ في الوقت الفعلي.">
+                        Leverage AI-powered analytics for data-driven decisions. Our systems process vast amounts of information to provide actionable insights in real-time.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials">
+            <h2 class="section-title" data-en="What Our Clients Say" data-ar="ماذا يقول عملاؤنا">What Our Clients Say</h2>
+            <p class="section-subtitle" data-en="Trusted by business leaders across Qatar" data-ar="موثوق به من قبل قادة الأعمال في جميع أنحاء قطر">Trusted by business leaders across Qatar</p>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text" data-en="Neuro Ai Developers transformed our inventory management completely. What used to take our team 3 days now happens automatically in minutes. The ROI was evident within the first month." 
+                       data-ar="حول مطورو نيورو اي إدارة مخزوننا بالكامل. ما كان يستغرق فريقنا 3 أيام يحدث الآن تلقائيًا في دقائق. كان العائد على الاستثمار واضحًا في الشهر الأول.">
+                        Neuro Ai Developers transformed our inventory management completely. What used to take our team 3 days now happens automatically in minutes. The ROI was evident within the first month.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">YA</div>
+                        <div class="author-info">
+                            <div class="author-name" data-en="Youssef Al-Mahmoud" data-ar="يوسف المحمود">Youssef Al-Mahmoud</div>
+                            <div class="author-title" data-en="CEO, Al-Mahmoud Trading Co." data-ar="الرئيس التنفيذي، شركة المحمود للتجارة">CEO, Al-Mahmoud Trading Co.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text" data-en="We were drowning in manual processes. Neuro Ai built us a custom workflow automation that integrates perfectly with our existing systems. Our operational costs dropped by 40%." 
+                       data-ar="كنا نغرق في العمليات اليدوية. بنى لنا نيورو اي أتمتة سير عمل مخصصة تتكامل تمامًا مع أنظمتنا الحالية. انخفضت تكاليفنا التشغيلية بنسبة 40٪.">
+                        We were drowning in manual processes. Neuro Ai built us a custom workflow automation that integrates perfectly with our existing systems. Our operational costs dropped by 40%.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">FA</div>
+                        <div class="author-info">
+                            <div class="author-name" data-en="Fatima Al-Kuwari" data-ar="فاطمة الكواري">Fatima Al-Kuwari</div>
+                            <div class="author-title" data-en="Operations Director, Pearl Logistics" data-ar="مدير العمليات، لؤلؤة اللوجستية">Operations Director, Pearl Logistics</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text" data-en="The AI decision-making system they developed for us analyzes market trends and customer behavior in real-time. We've made smarter business decisions faster than ever before." 
+                       data-ar="نظام اتخاذ القرارات بالذكاء الاصطناعي الذي طوروه لنا يحلل اتجاهات السوق وسلوك العملاء في الوقت الفعلي. لقد اتخذنا قرارات تجارية أكثر ذكاءً بشكل أسرع من أي وقت مضى.">
+                        The AI decision-making system they developed for us analyzes market trends and customer behavior in real-time. We've made smarter business decisions faster than ever before.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">KA</div>
+                        <div class="author-info">
+                            <div class="author-name" data-en="Khalid Al-Thani" data-ar="خالد الثاني">Khalid Al-Thani</div>
+                            <div class="author-title" data-en="Founder, Gulf Retail Solutions" data-ar="المؤسس، حلول البيع بالتجزئة الخليجية">Founder, Gulf Retail Solutions</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text" data-en="As a small business, we didn't think AI automation was within our reach. Neuro Ai created an affordable solution tailored to our needs. Game changer for our growth!" 
+                       data-ar="كشركة صغيرة، لم نعتقد أن أتمتة الذكاء الاصطناعي كانت في متناولنا. أنشأ نيورو اي حلاً ميسور التكلفة مصممًا لاحتياجاتنا. غيّر قواعد اللعبة لنمونا!">
+                        As a small business, we didn't think AI automation was within our reach. Neuro Ai created an affordable solution tailored to our needs. Game changer for our growth!
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MA</div>
+                        <div class="author-info">
+                            <div class="author-name" data-en="Mariam Al-Ansari" data-ar="مريم الأنصاري">Mariam Al-Ansari</div>
+                            <div class="author-title" data-en="Owner, Doha Digital Marketing" data-ar="المالك، الدوحة للتسويق الرقمي">Owner, Doha Digital Marketing</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text" data-en="Their team understood our complex supply chain challenges and delivered an automation solution that exceeded expectations. Professional, responsive, and truly innovative." 
+                       data-ar="فهم فريقهم تحديات سلسلة التوريد المعقدة لدينا وقدم حلاً للأتمتة تجاوز التوقعات. محترف ومستجيب ومبتكر حقًا.">
+                        Their team understood our complex supply chain challenges and delivered an automation solution that exceeded expectations. Professional, responsive, and truly innovative.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SA</div>
+                        <div class="author-info">
+                            <div class="author-name" data-en="Saeed Al-Marri" data-ar="سعيد المري">Saeed Al-Marri</div>
+                            <div class="author-title" data-en="COO, Qatar Construction Group" data-ar="مدير العمليات، مجموعة قطر للإنشاءات">COO, Qatar Construction Group</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text" data-en="The customer service automation they implemented handles 80% of inquiries without human intervention, and customer satisfaction actually improved. Incredible results!" 
+                       data-ar="أتمتة خدمة العملاء التي نفذوها تتعامل مع 80٪ من الاستفسارات دون تدخل بشري، وتحسنت رضا العملاء فعليًا. نتائج لا تصدق!">
+                        The customer service automation they implemented handles 80% of inquiries without human intervention, and customer satisfaction actually improved. Incredible results!
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">LA</div>
+                        <div class="author-info">
+                            <div class="author-name" data-en="Layla Al-Naimi" data-ar="ليلى النعيمي">Layla Al-Naimi</div>
+                            <div class="author-title" data-en="Customer Experience Manager, Horizon Hospitality" data-ar="مدير تجربة العملاء، هورايزون للضيافة">Customer Experience Manager, Horizon Hospitality</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq">
+            <h2 class="section-title" data-en="Frequently Asked Questions" data-ar="الأسئلة المتكررة">Frequently Asked Questions</h2>
+            <p class="section-subtitle" data-en="Everything you need to know about our AI automation services" data-ar="كل ما تحتاج لمعرفته حول خدمات الأتمتة بالذكاء الاصطناعي لدينا">Everything you need to know about our AI automation services</p>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span data-en="What types of businesses do you work with?" data-ar="ما هي أنواع الشركات التي تعمل معها؟">What types of businesses do you work with?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p data-en="We work with businesses of all sizes - from small startups to large enterprises across various industries including retail, logistics, hospitality, construction, healthcare, and professional services. Our solutions are customized to fit your specific needs and scale." 
+                           data-ar="نحن نعمل مع الشركات من جميع الأحجام - من الشركات الناشئة الصغيرة إلى المؤسسات الكبيرة عبر مختلف الصناعات بما في ذلك التجزئة والخدمات اللوجستية والضيافة والبناء والرعاية الصحية والخدمات المهنية. يتم تخصيص حلولنا لتناسب احتياجاتك المحددة والحجم.">
+                            We work with businesses of all sizes - from small startups to large enterprises across various industries including retail, logistics, hospitality, construction, healthcare, and professional services. Our solutions are customized to fit your specific needs and scale.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span data-en="How long does it take to implement an automation solution?" data-ar="كم من الوقت يستغرق تنفيذ حل الأتمتة؟">How long does it take to implement an automation solution?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p data-en="Implementation timelines vary based on complexity. Simple task automation can be deployed in 2-4 weeks, while comprehensive workflow systems may take 2-3 months. We provide a detailed timeline during the consultation phase and work efficiently to minimize disruption to your operations." 
+                           data-ar="تختلف جداول التنفيذ بناءً على التعقيد. يمكن نشر أتمتة المهام البسيطة في 2-4 أسابيع، بينما قد تستغرق أنظمة سير العمل الشاملة 2-3 أشهر. نحن نقدم جدولًا زمنيًا مفصلاً خلال مرحلة الاستشارة ونعمل بكفاءة لتقليل الاضطراب في عملياتك.">
+                            Implementation timelines vary based on complexity. Simple task automation can be deployed in 2-4 weeks, while comprehensive workflow systems may take 2-3 months. We provide a detailed timeline during the consultation phase and work efficiently to minimize disruption to your operations.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span data-en="Will the AI system integrate with our existing software?" data-ar="هل سيتكامل نظام الذكاء الاصطناعي مع برامجنا الحالية؟">Will the AI system integrate with our existing software?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p data-en="Yes! We specialize in creating solutions that seamlessly integrate with your current tech stack, including ERPs, CRMs, accounting software, and custom applications. We conduct a thorough assessment of your systems to ensure smooth integration without requiring you to replace existing tools." 
+                           data-ar="نعم! نحن متخصصون في إنشاء حلول تتكامل بسلاسة مع حزمة التكنولوجيا الحالية الخاصة بك، بما في ذلك أنظمة تخطيط موارد المؤسسات وإدارة علاقات العملاء وبرامج المحاسبة والتطبيقات المخصصة. نجري تقييمًا شاملاً لأنظمتك لضمان التكامل السلس دون الحاجة إلى استبدال الأدوات الحالية.">
+                            Yes! We specialize in creating solutions that seamlessly integrate with your current tech stack, including ERPs, CRMs, accounting software, and custom applications. We conduct a thorough assessment of your systems to ensure smooth integration without requiring you to replace existing tools.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span data-en="What kind of support do you provide after implementation?" data-ar="ما نوع الدعم الذي تقدمونه بعد التنفيذ؟">What kind of support do you provide after implementation?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p data-en="We provide comprehensive ongoing support including 24/7 monitoring, regular maintenance, system updates, and dedicated account management. Our team is always available to address issues, optimize performance, and scale your automation as your business grows. Training for your staff is also included." 
+                           data-ar="نحن نقدم دعمًا شاملاً مستمرًا بما في ذلك المراقبة على مدار الساعة طوال أيام الأسبوع والصيانة الدورية وتحديثات النظام وإدارة الحساب المخصصة. فريقنا متاح دائمًا لمعالجة المشكلات وتحسين الأداء وتوسيع نطاق الأتمتة الخاصة بك مع نمو عملك. يتم تضمين التدريب لموظفيك أيضًا.">
+                            We provide comprehensive ongoing support including 24/7 monitoring, regular maintenance, system updates, and dedicated account management. Our team is always available to address issues, optimize performance, and scale your automation as your business grows. Training for your staff is also included.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span data-en="How much does AI automation cost?" data-ar="كم تكلفة أتمتة الذكاء الاصطناعي؟">How much does AI automation cost?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p data-en="Pricing varies based on the scope and complexity of your automation needs. We offer flexible pricing models including project-based fees and monthly subscriptions. Most clients see ROI within 3-6 months through increased efficiency and reduced labor costs. Contact us for a free consultation and customized quote." 
+                           data-ar="يختلف التسعير بناءً على نطاق وتعقيد احتياجات الأتمتة الخاصة بك. نحن نقدم نماذج تسعير مرنة بما في ذلك الرسوم القائمة على المشروع والاشتراكات الشهرية. يرى معظم العملاء عائد الاستثمار في غضون 3-6 أشهر من خلال زيادة الكفاءة وتقليل تكاليف العمالة. اتصل بنا للحصول على استشارة مجانية وعرض أسعار مخصص.">
+                            Pricing varies based on the scope and complexity of your automation needs. We offer flexible pricing models including project-based fees and monthly subscriptions. Most clients see ROI within 3-6 months through increased efficiency and reduced labor costs. Contact us for a free consultation and customized quote.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span data-en="Is my business data secure with AI automation?" data-ar="هل بيانات عملي آمنة مع أتمتة الذكاء الاصطناعي؟">Is my business data secure with AI automation?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p data-en="Absolutely. We implement enterprise-grade security measures including data encryption, secure access controls, and compliance with international data protection standards. Your data remains on your infrastructure or in secure cloud environments of your choice. We sign NDAs and are fully compliant with Qatar's data protection regulations." 
+                           data-ar="بالتأكيد. نحن ننفذ تدابير أمنية على مستوى المؤسسة بما في ذلك تشفير البيانات وضوابط الوصول الآمنة والامتثال لمعايير حماية البيانات الدولية. تبقى بياناتك على البنية التحتية الخاصة بك أو في بيئات سحابية آمنة من اختيارك. نحن نوقع اتفاقيات عدم الإفصاح ونمتثل بالكامل لأنظمة حماية البيانات في قطر.">
+                            Absolutely. We implement enterprise-grade security measures including data encryption, secure access controls, and compliance with international data protection standards. Your data remains on your infrastructure or in secure cloud environments of your choice. We sign NDAs and are fully compliant with Qatar's data protection regulations.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="cta-box">
+                <h2 data-en="Ready to Transform Your Business?" data-ar="هل أنت مستعد لتحويل عملك؟">Ready to Transform Your Business?</h2>
+                <p data-en="Join leading companies in Qatar that trust Neuro Ai Developers for their automation needs." 
+                   data-ar="انضم إلى الشركات الرائدة في قطر التي تثق في مطوري نيورو اي لاحتياجات الأتمتة الخاصة بهم.">
+                    Join leading companies in Qatar that trust Neuro Ai Developers for their automation needs.
+                </p>
+                <button class="btn btn-primary" data-en="Schedule a Consultation" data-ar="حدد موعد استشارة">Schedule a Consultation</button>
+            </div>
+        </section>
+
+        <footer>
+            <p data-en="© 2024 Neuro Ai Developers. All rights reserved. | Based in Qatar" 
+               data-ar="© 2024 نيورو اي للمطورين. جميع الحقوق محفوظة. | مقرها في قطر">
+                © 2024 Neuro Ai Developers. All rights reserved. | Based in Qatar
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Language Switcher
+        const langButtons = document.querySelectorAll('.lang-btn');
+        const html = document.documentElement;
+
+        langButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.getAttribute('data-lang');
+                
+                // Update active state
+                langButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Update language and direction
+                html.setAttribute('lang', lang);
+                html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+
+                // Update all translatable elements
+                document.querySelectorAll('[data-en]').forEach(el => {
+                    const text = el.getAttribute(`data-${lang}`);
+                    if (text) {
+                        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                            el.placeholder = text;
+                        } else {
+                            el.textContent = text;
+                        }
+                    }
+                });
+            });
+        });
+
+        // Smooth scroll for buttons
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                if (!btn.classList.contains('btn-primary')) return;
+                e.preventDefault();
+                // Add your form or contact section scroll here
+            });
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-item').forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                
+                // Close all other FAQ items
+                document.querySelectorAll('.faq-item').forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current item
+                item.classList.toggle('active');
+            });
+        });
+
+        // Add particle effect on mouse move
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            
+            const particle = document.createElement('div');
+            particle.style.cssText = `
+                position: fixed;
+                width: 4px;
+                height: 4px;
+                background: var(--primary);
+                border-radius: 50%;
+                pointer-events: none;
+                left: ${x}px;
+                top: ${y}px;
+                opacity: 0.6;
+                z-index: 9999;
+                animation: particleFade 1s ease-out forwards;
+            `;
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => particle.remove(), 1000);
+        });
+
+        // Add particle animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes particleFade {
+                to {
+                    opacity: 0;
+                    transform: translate(${Math.random() * 40 - 20}px, ${Math.random() * 40 - 20}px) scale(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
